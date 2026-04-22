@@ -1,0 +1,34 @@
+[project]
+name = "hastus"
+version = "0.0.1"
+authors = [{ name = "wangyitian91@gmail.com" }]
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    # Any dependencies for jobs and pipelines in this project can be added here
+    # See also https://docs.databricks.com/dev-tools/bundles/library-dependencies
+    #
+    # LIMITATION: for pipelines, dependencies are cached during development;
+    # add dependencies to the 'environment' section of your pipeline.yml file instead
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "databricks-dlt",
+    "databricks-connect==17.3",
+    "ipykernel",
+]
+
+[project.scripts]
+main = "hastus.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hastus_etl"]
+
+[tool.ruff]
+line-length = 120

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object_interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- Batch 1: baseline for SCD1 smoke test (load into Volume / landing, then run pipeline). -->
+  <absence_type>
+    <abst_identifier>ACTP</abst_identifier>
+    <abst_description>Acting position</abst_description>
+    <abs_creation_date>2024-04-12</abs_creation_date>
+    <abs_creation_time>2000-01-01T14:07:02.1</abs_creation_time>
+    <abs_creation_user>aaron.hu</abs_creation_user>
+    <abst_allow_extended_hours>false</abst_allow_extended_hours>
+    <abst_allow_partial_only>false</abst_allow_partial_only>
+    <abst_is_bot>false</abst_is_bot>
+    <abst_is_consider_for_long_term>true</abst_is_consider_for_long_term>
+    <abst_is_for_grtw>false</abst_is_for_grtw>
+    <abst_is_active>false</abst_is_active>
+    <abst_is_open_ended>false</abst_is_open_ended>
+    <abst_is_paid>true</abst_is_paid>
+    <abst_is_signup_relief>false</abst_is_signup_relief>
+    <abst_is_unexcused>false</abst_is_unexcused>
+    <abst_gener_days_off>false</abst_gener_days_off>
+    <abst_avail_type>NOT_AVAIL</abst_avail_type>
+    <abst_can_be_auto_approved>false</abst_can_be_auto_approved>
+    <abst_can_submit_past_selfservice>false</abst_can_submit_past_selfservice>
+    <abst_cancel_on_depot_transfer>false</abst_cancel_on_depot_transfer>
+    <abst_cancel_on_nobd_cleanup>false</abst_cancel_on_nobd_cleanup>
+    <abst_cannot_overlap_work>false</abst_cannot_overlap_work>
+    <abst_concedes_acq_right>false</abst_concedes_acq_right>
+    <abst_contributes_to_nsc>false</abst_contributes_to_nsc>
+    <abst_contributes_to_obligation xsi:nil="true"/>
+    <abst_contributes_to_ot>false</abst_contributes_to_ot>
+    <abst_contributes_to_tripper_score>true</abst_contributes_to_tripper_score>
+    <abst_disqualifies_for_stat>false</abst_disqualifies_for_stat>
+    <abst_evaluate_request_rank>false</abst_evaluate_request_rank>
+    <abst_for_selfservice>false</abst_for_selfservice>
+    <abst_force_obligation_zero>true</abst_force_obligation_zero>
+  </absence_type>
+  <absence_type>
+    <abst_identifier>ZZTST</abst_identifier>
+    <abst_description>SCD1 test key ZZTST — initial description</abst_description>
+    <abs_creation_date>2026-04-10</abs_creation_date>
+    <abs_creation_time>2000-01-01T10:00:00.0</abs_creation_time>
+    <abs_creation_user>scd1.test</abs_creation_user>
+    <abst_allow_extended_hours>false</abst_allow_extended_hours>
+    <abst_allow_partial_only>false</abst_allow_partial_only>
+    <abst_is_bot>false</abst_is_bot>
+    <abst_is_consider_for_long_term>true</abst_is_consider_for_long_term>
+    <abst_is_for_grtw>false</abst_is_for_grtw>
+    <abst_is_active>false</abst_is_active>
+    <abst_is_open_ended>false</abst_is_open_ended>
+    <abst_is_paid>true</abst_is_paid>
+    <abst_is_signup_relief>false</abst_is_signup_relief>
+    <abst_is_unexcused>false</abst_is_unexcused>
+    <abst_gener_days_off>false</abst_gener_days_off>
+    <abst_avail_type>NOT_AVAIL</abst_avail_type>
+    <abst_can_be_auto_approved>false</abst_can_be_auto_approved>
+    <abst_can_submit_past_selfservice>false</abst_can_submit_past_selfservice>
+    <abst_cancel_on_depot_transfer>false</abst_cancel_on_depot_transfer>
+    <abst_cancel_on_nobd_cleanup>false</abst_cancel_on_nobd_cleanup>
+    <abst_cannot_overlap_work>false</abst_cannot_overlap_work>
+    <abst_concedes_acq_right>false</abst_concedes_acq_right>
+    <abst_contributes_to_nsc>false</abst_contributes_to_nsc>
+    <abst_contributes_to_obligation xsi:nil="true"/>
+    <abst_contributes_to_ot>false</abst_contributes_to_ot>
+    <abst_contributes_to_tripper_score>true</abst_contributes_to_tripper_score>
+    <abst_disqualifies_for_stat>false</abst_disqualifies_for_stat>
+    <abst_evaluate_request_rank>false</abst_evaluate_request_rank>
+    <abst_for_selfservice>false</abst_for_selfservice>
+    <abst_force_obligation_zero>true</abst_force_obligation_zero>
+  </absence_type>
+</object_interface>
