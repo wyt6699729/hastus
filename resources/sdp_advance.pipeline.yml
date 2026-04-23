@@ -1,0 +1,17 @@
+# SDP Advance pipeline (Lakeflow / pyspark.pipelines)
+resources:
+  pipelines:
+    sdp_advance:
+      name: sdp_advance
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      root_path: "../src/sdp_advance"
+
+      libraries:
+        - glob:
+            include: ../src/sdp_advance/**
+
+      environment:
+        dependencies:
+          - --editable ${workspace.file_path}
