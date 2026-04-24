@@ -10,8 +10,11 @@ include:
 # Variable declarations. These variables are assigned in the dev/prod targets below.
 variables:
   catalog:
-    description: The catalog to use
+    description: Default Unity Catalog for hastus_etl and general bundle resources
     default: hastus_dev
+  sdp_catalog:
+    description: Unity Catalog for sdp_advance / multi_flow Lakeflow pipelines
+    default: sdp_advance
   schema:
     description: The schema to use
     default: default
@@ -29,10 +32,6 @@ targets:
     default: true
     workspace:
       host: https://8259559630256218.8.gcp.databricks.com/
-    variables:
-      catalog: hastus_dev
-      schema: default
-      hastus_source: /Volumes/${var.catalog}/00_landing/hastus_landing
   # prod:
   #   mode: production
   #   workspace:
