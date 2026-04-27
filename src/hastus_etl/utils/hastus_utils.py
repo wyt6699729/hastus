@@ -21,8 +21,10 @@ def read_hastus_xml(spark, source_root, dataset, row_tag):
 def convert_hastus_time(col_name, format_type="HH:mm"):
     """Convert HASTUS pseudo-dates into continuous transit hours."""
     source_col = F.col(col_name)
-    day_val = F.substring(source_col, 9, 2).cast("int")
-    hour_val = F.substring(source_col, 12, 2).cast("int")
+    day_str = F.substring(source_col, 9, 2)
+    hour_str = F.substring(source_col, 12, 2)
+    day_val = F.when(day_str.rlike(r"^\d{2}$"), day_str.cast("int"))
+    hour_val = F.when(hour_str.rlike(r"^\d{2}$"), hour_str.cast("int"))
 
     total_hours = (day_val - F.lit(1)) * F.lit(24) + hour_val
     formatted_hour = F.lpad(total_hours.cast("string"), 2, "0")
@@ -44,20 +46,27 @@ def absence_creation_datetime(abs_creation_date_col, abs_creation_time_col):
     """
     date_col = F.trim(F.col(abs_creation_date_col))
     time_col = F.trim(F.col(abs_creation_time_col))
-    d = F.coalesce(
-        F.to_date(date_col, "yyyyMMdd"),
-        F.to_date(date_col, "yyyy-MM-dd"),
+    d = (
+        F.when(date_col.rlike(r"^\d{8}$"), F.to_date(date_col, "yyyyMMdd"))
+        .when(date_col.rlike(r"^\d{4}-\d{2}-\d{2}$"), F.to_date(date_col, "yyyy-MM-dd"))
+        .otherwise(F.lit(None).cast("date"))
     )
-    day_val = F.substring(time_col, 9, 2).cast("int")
-    hour_val = F.substring(time_col, 12, 2).cast("int")
+    day_str = F.substring(time_col, 9, 2)
+    hour_str = F.substring(time_col, 12, 2)
+    minute_str = F.substring(time_col, 15, 2)
+    second_str = F.substring(time_col, 18, 2)
+    day_val = F.when(day_str.rlike(r"^\d{2}$"), day_str.cast("int"))
+    hour_val = F.when(hour_str.rlike(r"^\d{2}$"), hour_str.cast("int"))
     total_hours = (day_val - F.lit(1)) * F.lit(24) + hour_val
     minute_val = F.when(
-        F.substring(time_col, 14, 1) == ":",
-        F.substring(time_col, 15, 2).cast("int"),
+        (F.substring(time_col, 14, 1) == ":") & minute_str.rlike(r"^\d{2}$"),
+        minute_str.cast("int"),
     ).otherwise(F.lit(0))
     second_val = F.when(
-        (F.substring(time_col, 17, 1) == ":") & (F.length(time_col) >= F.lit(19)),
-        F.substring(time_col, 18, 2).cast("int"),
+        (F.substring(time_col, 17, 1) == ":")
+        & (F.length(time_col) >= F.lit(19))
+        & second_str.rlike(r"^\d{2}$"),
+        second_str.cast("int"),
     ).otherwise(F.lit(0))
     base_ts = F.to_timestamp(
         F.concat(F.date_format(d, "yyyy-MM-dd"), F.lit(" 00:00:00")),

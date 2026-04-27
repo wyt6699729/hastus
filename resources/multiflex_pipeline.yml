@@ -1,0 +1,18 @@
+resources:
+  pipelines:
+    multiflex_pipeline:
+      name: multiflex_pipeline
+      catalog: ${var.sdp_catalog}
+      schema: ${var.schema}
+      configuration:
+        business_events_source: /Volumes/${var.sdp_catalog}/multiplex_1_bronze/business_events
+      serverless: true
+      root_path: "../src/sdp_advance/transformations/multiplex_pipeline"
+
+      libraries:
+        - glob:
+            include: ../src/sdp_advance/transformations/multiplex_pipeline/**
+
+      environment:
+        dependencies:
+          - --editable ${workspace.file_path}

@@ -1,0 +1,18 @@
+resources:
+  pipelines:
+    dq_pipeline:
+      name: dq_pipeline
+      catalog: ${var.sdp_catalog}
+      schema: ${var.schema}
+      configuration:
+        sales_source: /Volumes/${var.sdp_catalog}/dq_1_bronze/sales
+      serverless: true
+      root_path: "../src/sdp_advance/transformations/dq_pipeline"
+
+      libraries:
+        - glob:
+            include: ../src/sdp_advance/transformations/dq_pipeline/**
+
+      environment:
+        dependencies:
+          - --editable ${workspace.file_path}
