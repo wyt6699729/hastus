@@ -89,6 +89,15 @@ databricks bundle deploy --target dev
 databricks bundle deploy --target prod
 ```
 
+### Compute strategy by environment
+
+- `dev`: keep `hastus_etl` on serverless for faster iteration.
+- `prod`: override `hastus_etl` to classic pipeline job cluster in `databricks.yml`.
+- Current prod cluster override uses:
+  - `node_type_id: n2-standard-4`
+  - autoscale `min_workers: 1`, `max_workers: 4`
+- If this node type is unavailable in your workspace, update `targets.prod.resources.pipelines.hastus_etl.clusters`.
+
 ### Run pipeline or job
 
 ```bash
@@ -111,12 +120,11 @@ This bundle deploys **only** the resources included from `resources/hastus/` (se
 
 ## Helpful Docs
 
-> CI/CD test note: this branch is used to validate GitHub Actions wiring.
-
-
 - Databricks Bundles: https://docs.databricks.com/dev-tools/bundles/
 - Databricks CLI: https://docs.databricks.com/dev-tools/cli/databricks-cli.html
 - VS Code / IDE flow: https://docs.databricks.com/dev-tools/vscode-ext.html
+- Architecture guide: `ARCHITECTURE.md`
+- Production release checklist: `PROD_DEPLOY_CHECKLIST.md`
 
 ## CI/CD (GitHub Actions)
 
