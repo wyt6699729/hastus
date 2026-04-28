@@ -9,7 +9,7 @@ jobs:
   cd-deploy-prod:
     name: Deploy to PROD
     runs-on: ubuntu-latest
-    environment: hastus_prod
+    environment: prod
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
