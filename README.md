@@ -111,6 +111,9 @@ This bundle deploys **only** the resources included from `resources/hastus/` (se
 
 ## Helpful Docs
 
+> CI/CD test note: this branch is used to validate GitHub Actions wiring.
+
+
 - Databricks Bundles: https://docs.databricks.com/dev-tools/bundles/
 - Databricks CLI: https://docs.databricks.com/dev-tools/cli/databricks-cli.html
 - VS Code / IDE flow: https://docs.databricks.com/dev-tools/vscode-ext.html
