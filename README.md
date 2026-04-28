@@ -126,20 +126,19 @@ This repository now includes two workflows:
   - Runs pytest with coverage HTML report and uploads `htmlcov` artifact
 - `.github/workflows/cd.yml`
   - Runs on push to `main`
-  - Deploys to `dev` first, then `prod`
-  - Uses Databricks bundle deploy with profiles `DEV` and `PROD`
+  - Deploys only to `prod`
+  - Uses GitHub environment `hastus_prod`
+  - Uses Databricks bundle deploy with profile `PROD`
 
 ### Required GitHub Secret
 
 For deployment workflow (`cd.yml`), configure:
 
-- `DATABRICKS_HOST_DEV`: DEV workspace URL
-- `DATABRICKS_CLIENT_ID_DEV`: Service Principal OAuth client ID for DEV
-- `DATABRICKS_CLIENT_SECRET_DEV`: Service Principal OAuth client secret for DEV
-- `DATABRICKS_HOST_PROD`: PROD workspace URL
-- `DATABRICKS_CLIENT_ID_PROD`: Service Principal OAuth client ID for PROD
-- `DATABRICKS_CLIENT_SECRET_PROD`: Service Principal OAuth client secret for PROD
+- GitHub environment: `hastus_prod`
+- Secret: `HASTUS_HOST` (Databricks workspace URL, e.g. `https://<workspace-id>.<shard>.gcp.databricks.com`)
+- Secret: `HASTUS_CLIENT_ID` (Service Principal OAuth client ID)
+- Secret: `HASTUS_CLIENT_SECRET` (Service Principal OAuth client secret)
 
 ### Recommended Next Step
 
-If you plan to use this workflow as-is, make sure `dev` and `prod` targets are defined in `databricks.yml` and match your intended workspaces.
+If you plan to use this workflow as-is, make sure `prod` target is defined in `databricks.yml` and matches your intended workspace.
