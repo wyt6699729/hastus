@@ -97,13 +97,17 @@ databricks bundle run
 
 ## Pipeline Resources in This Repo
 
-Examples under `resources/`:
+This bundle deploys **only** the resources included from `resources/hastus/` (see `databricks.yml`).
 
-- `hastus_etl.pipeline.yml`
-- `dq_pipeline.pipeline.yml`
-- `multi_flow.pipelines.yml`
-- `multiflex_pipeline.yml`
-- `scd_type2.pipeline.yml`
+- **Deployed by this bundle**
+  - `resources/hastus/hastus_etl.pipeline.yml`
+  - `resources/hastus/test_data/` (sample inputs referenced by pipelines/tests)
+
+- **Not deployed by this bundle** (kept for reference / a future SDP bundle)
+  - `resources/sdp_advance/dq_pipeline.pipeline.yml`
+  - `resources/sdp_advance/multi_flow.pipelines.yml`
+  - `resources/sdp_advance/multiflex_pipeline.yml`
+  - `resources/sdp_advance/scd_type2.pipeline.yml`
 
 ## Helpful Docs
 

@@ -5,16 +5,15 @@ bundle:
   uuid: 15aad21e-eb36-444a-876c-13a1d9e36ab5
 
 include:
-  - resources/*.yml
+  # This bundle intentionally deploys only hastus resources. SDP advance pipeline
+  # definitions live under resources/sdp_advance/ for reference or a separate bundle.
+  - resources/hastus/*.yml
 
 # Variable declarations. Values can be overridden per target below.
 variables:
   catalog:
     description: Default Unity Catalog for hastus_etl and general bundle resources
     default: hastus_dev
-  sdp_catalog:
-    description: Unity Catalog for sdp_advance / multi_flow Lakeflow pipelines
-    default: sdp_advance
   schema:
     description: The schema to use
     default: default
@@ -35,7 +34,6 @@ targets:
     variables:
       catalog: hastus_dev
       schema: default
-      sdp_catalog: sdp_advance
       hastus_source: /Volumes/${var.catalog}/00_landing/hastus_landing
   prod:
     mode: production
@@ -47,7 +45,6 @@ targets:
     variables:
       catalog: hastus_prod
       schema: default
-      sdp_catalog: sdp_advance
       hastus_source: /Volumes/${var.catalog}/00_landing/hastus_landing
     permissions:
       - service_principal_name: 4023671e-0874-4730-a36a-ba1c918379ae

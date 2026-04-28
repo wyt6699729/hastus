@@ -10,11 +10,12 @@ resources:
         lumia_sports_orders_source: /Volumes/${var.sdp_catalog}/multi_flow_1_bronze/lumia_sports_orders
         northstar_outfitters_orders_source: /Volumes/${var.sdp_catalog}/multi_flow_1_bronze/northstar_outfitters_orders
       serverless: true
-      root_path: "../src/sdp_advance/transformations/ingest_multiple_flows"
+      # resources/sdp_advance/*.yml -> repo root is ../../
+      root_path: "../../src/sdp_advance/transformations/ingest_multiple_flows"
 
       libraries:
         - glob:
-            include: ../src/sdp_advance/transformations/ingest_multiple_flows/**
+            include: ../../src/sdp_advance/transformations/ingest_multiple_flows/**
 
       environment:
         dependencies:

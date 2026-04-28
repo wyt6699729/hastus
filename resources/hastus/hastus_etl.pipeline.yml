@@ -8,11 +8,12 @@ resources:
       configuration:
         hastus_source: ${var.hastus_source}
       serverless: true
-      root_path: "../src/hastus_etl"
+      # One level deeper than resources/*.yml, so we need ../../ to reach repo src/
+      root_path: "../../src/hastus_etl"
 
       libraries:
         - glob:
-            include: ../src/hastus_etl/**
+            include: ../../src/hastus_etl/**
 
       environment:
         dependencies:
