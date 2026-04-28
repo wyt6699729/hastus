@@ -27,6 +27,12 @@ jobs:
           pip install --upgrade pip
           pip install setuptools wheel
 
+      - name: Validate required secrets exist
+        run: |
+          [ -n "${{ secrets.HASTUS_HOST }}" ] || (echo "Missing secret: HASTUS_HOST" && exit 1)
+          [ -n "${{ secrets.HASTUS_CLIENT_ID }}" ] || (echo "Missing secret: HASTUS_CLIENT_ID" && exit 1)
+          [ -n "${{ secrets.HASTUS_CLIENT_SECRET }}" ] || (echo "Missing secret: HASTUS_CLIENT_SECRET" && exit 1)
+
       - name: Configure Databricks
         run: |
           # write out the profile (here called "PROD")
