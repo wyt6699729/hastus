@@ -1,0 +1,82 @@
+name: CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cd-deploy-dev:
+    name: Deploy to DEV
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Databricks CLI
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install setuptools wheel
+
+      - name: Configure Databricks
+        run: |
+          # write out the profile (here called "DEV")
+          cat <<EOF > ~/.databrickscfg
+          [DEV]
+          host = ${{ secrets.DATABRICKS_HOST_DEV }}
+          client_id = ${{ secrets.DATABRICKS_CLIENT_ID_DEV }}
+          client_secret = ${{ secrets.DATABRICKS_CLIENT_SECRET_DEV }}
+          EOF
+
+      - name: Deploy to DEV
+        run: |
+          databricks bundle deploy \
+            --target dev \
+            --profile DEV
+
+  cd-deploy-prod:
+    name: Deploy to PROD
+    needs: cd-deploy-dev
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Databricks CLI
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install setuptools wheel
+
+      - name: Configure Databricks
+        run: |
+          # write out the profile (here called "PROD")
+          cat <<EOF > ~/.databrickscfg
+          [PROD]
+          host = ${{ secrets.DATABRICKS_HOST_PROD }}
+          client_id = ${{ secrets.DATABRICKS_CLIENT_ID_PROD }}
+          client_secret = ${{ secrets.DATABRICKS_CLIENT_SECRET_PROD }}
+          EOF
+
+      - name: Deploy to PROD
+        run: |
+          databricks bundle deploy \
+            --target prod \
+            --profile PROD
