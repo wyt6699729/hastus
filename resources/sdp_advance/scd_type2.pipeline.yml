@@ -8,11 +8,12 @@ resources:
       configuration:
         source: /Volumes/${var.sdp_catalog}/sdp_cdc_1_bronze/customer_source_files
       serverless: true
-      root_path: "../src/sdp_advance/transformations/scd_type2"
+      # resources/sdp_advance/*.yml -> repo root is ../../
+      root_path: "../../src/sdp_advance/transformations/scd_type2"
 
       libraries:
         - glob:
-            include: ../src/sdp_advance/transformations/scd_type2/**
+            include: ../../src/sdp_advance/transformations/scd_type2/**
 
       environment:
         dependencies:

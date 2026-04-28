@@ -7,11 +7,12 @@ resources:
       configuration:
         business_events_source: /Volumes/${var.sdp_catalog}/multiplex_1_bronze/business_events
       serverless: true
-      root_path: "../src/sdp_advance/transformations/multiplex_pipeline"
+      # resources/sdp_advance/*.yml -> repo root is ../../
+      root_path: "../../src/sdp_advance/transformations/multiplex_pipeline"
 
       libraries:
         - glob:
-            include: ../src/sdp_advance/transformations/multiplex_pipeline/**
+            include: ../../src/sdp_advance/transformations/multiplex_pipeline/**
 
       environment:
         dependencies:

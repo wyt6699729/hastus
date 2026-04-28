@@ -5,16 +5,15 @@ bundle:
   uuid: 15aad21e-eb36-444a-876c-13a1d9e36ab5
 
 include:
-  - resources/*.yml
+  # This bundle intentionally deploys only hastus resources. SDP advance pipeline
+  # definitions live under resources/sdp_advance/ for reference or a separate bundle.
+  - resources/hastus/*.yml
 
-# Variable declarations. These variables are assigned in the dev/prod targets below.
+# Variable declarations. Values can be overridden per target below.
 variables:
   catalog:
     description: Default Unity Catalog for hastus_etl and general bundle resources
     default: hastus_dev
-  sdp_catalog:
-    description: Unity Catalog for sdp_advance / multi_flow Lakeflow pipelines
-    default: sdp_advance
   schema:
     description: The schema to use
     default: default
@@ -32,15 +31,21 @@ targets:
     default: true
     workspace:
       host: https://8259559630256218.8.gcp.databricks.com/
-  # prod:
-  #   mode: production
-  #   workspace:
-  #     host: https://8259555492074429.9.gcp.databricks.com
-  #     # We explicitly deploy to /Workspace/Users/wangyitian91@gmail.com to make sure we only have a single copy.
-  #     root_path: /Workspace/Users/wangyitian91@gmail.com/.bundle/${bundle.name}/${bundle.target}
-  #   variables:
-  #     catalog: hastus
-  #     schema: prod
-  #   permissions:
-  #     - user_name: wangyitian91@gmail.com
-  #       level: CAN_MANAGE
+    variables:
+      catalog: hastus_dev
+      schema: default
+      hastus_source: /Volumes/${var.catalog}/00_landing/hastus_landing
+  prod:
+    mode: production
+    workspace:
+      host: https://8259553918350454.4.gcp.databricks.com/
+      # Deploy bundle state under the deploying service principal's workspace home
+      # so CI/CD identity can always acquire deploy locks without shared-folder ACLs.
+      root_path: /Workspace/Users/4023671e-0874-4730-a36a-ba1c918379ae/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: hastus_prod
+      schema: default
+      hastus_source: /Volumes/${var.catalog}/00_landing/hastus_landing
+    permissions:
+      - service_principal_name: 4023671e-0874-4730-a36a-ba1c918379ae
+        level: CAN_MANAGE

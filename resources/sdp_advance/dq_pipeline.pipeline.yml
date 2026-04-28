@@ -7,11 +7,12 @@ resources:
       configuration:
         sales_source: /Volumes/${var.sdp_catalog}/dq_1_bronze/sales
       serverless: true
-      root_path: "../src/sdp_advance/transformations/dq_pipeline"
+      # resources/sdp_advance/*.yml -> repo root is ../../
+      root_path: "../../src/sdp_advance/transformations/dq_pipeline"
 
       libraries:
         - glob:
-            include: ../src/sdp_advance/transformations/dq_pipeline/**
+            include: ../../src/sdp_advance/transformations/dq_pipeline/**
 
       environment:
         dependencies:
