@@ -1,12 +1,15 @@
 name: CD Workflow
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+      - CI Workflow
+    types:
+      - completed
 
 jobs:
   cd-deploy-prod:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     name: Deploy to PROD
     runs-on: ubuntu-latest
     environment: hastus_prod
@@ -26,6 +29,12 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install setuptools wheel
+
+      - name: Validate required secrets exist
+        run: |
+          [ -n "${{ secrets.HASTUS_HOST }}" ] || (echo "Missing secret: HASTUS_HOST" && exit 1)
+          [ -n "${{ secrets.HASTUS_CLIENT_ID }}" ] || (echo "Missing secret: HASTUS_CLIENT_ID" && exit 1)
+          [ -n "${{ secrets.HASTUS_CLIENT_SECRET }}" ] || (echo "Missing secret: HASTUS_CLIENT_SECRET" && exit 1)
 
       - name: Configure Databricks
         run: |
