@@ -123,12 +123,12 @@ This bundle deploys **only** the resources included from `resources/hastus/` (se
 This repository now includes two workflows:
 
 - `.github/workflows/ci.yml`
-  - Runs on `feature/**` push and PRs to `main`
+  - Runs on `feature/**` and `main` push, and PRs to `main`
   - Sets up Java 17 for local PySpark tests
   - Installs dependencies from `requirements-venv-pyspark.txt`
   - Runs pytest with coverage HTML report and uploads `htmlcov` artifact
 - `.github/workflows/cd.yml`
-  - Runs on push to `main`
+  - Runs only after `CI Workflow` completes successfully on `main`
   - Deploys only to `prod`
   - Uses GitHub environment `hastus_prod`
   - Uses Databricks bundle deploy with profile `PROD`
