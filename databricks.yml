@@ -49,3 +49,17 @@ targets:
     permissions:
       - service_principal_name: 4023671e-0874-4730-a36a-ba1c918379ae
         level: CAN_MANAGE
+    resources:
+      jobs:
+        hastus_etl_job:
+          job_clusters:
+            - job_cluster_key: hastus_job_cluster
+              new_cluster:
+                spark_version: 15.4.x-scala2.12
+                node_type_id: n1-standard-4
+                num_workers: 0
+                spark_conf:
+                  spark.databricks.cluster.profile: singleNode
+                  spark.master: "local[*]"
+                custom_tags:
+                  ResourceClass: SingleNode
