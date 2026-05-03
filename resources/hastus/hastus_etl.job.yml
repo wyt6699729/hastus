@@ -1,0 +1,9 @@
+resources:
+  jobs:
+    hastus_etl_job:
+      name: hastus_etl_job
+
+      tasks:
+        - task_key: run_hastus_etl_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.hastus_etl.id}
